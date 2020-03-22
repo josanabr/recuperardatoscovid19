@@ -9,7 +9,7 @@ Este script toma los datos de esta página y los almacena en un archivo .CSV lla
 Para la instalación, lo primero que se debe hacer es descargar/clonar este repositorio.
 
 ```
-git clone
+git clone https://github.com/josanabr/recuperardatoscovid19.git
 ```
 
 Una vez descargado este repositorio se creará un directorio llamado `recuperardatoscovid19`. 
