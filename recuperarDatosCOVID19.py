@@ -104,5 +104,4 @@ if not path.exists(CSVFILE):
 elements = results.find_all("tr")
 for jobelement in elements:
 	dictio = trelement2dict(labels, jobelement)
-	print(dictio)
 	#print(dictio)
