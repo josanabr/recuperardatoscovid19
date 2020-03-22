@@ -47,6 +47,9 @@ def trelement2dict(keys, tr):
 		if counter == 0: # El primer valor es una cadena de caracteres
 			result[keys[0]] = tdelement.text
 			strrow = strrow + tdelement.text
+#			cadenaascii = tdelement.text.encode("ascii","ignore")
+#			result[keys[0]] = str(cadenaascii)
+#			strrow = strrow + str(cadenaascii)
 		else: # Se remueven espacios extra, el simbolo '+' y ','
 			value = tdelement.text.replace(" ", "").strip("+").replace(",","")
 			if value != "": # si no esta vacio es un numero
