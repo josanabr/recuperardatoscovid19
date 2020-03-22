@@ -57,7 +57,7 @@ def trelement2dict(keys, tr):
 	if strrow == "%s,"%str(CDATETIME): # no hubo datos 
 		return result
 	with open(CSVFILE,'a',newline='') as f: # se almacenan los datos
-		f.write("%s\n"%strrow)
+		f.write("%s\n"%strrow.encode('utf8')
 	return result
 	
 
