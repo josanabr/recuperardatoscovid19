@@ -34,3 +34,12 @@ Para ejecutar el script se invoca el siguiente comando:
 ```
 python3 recuperarDatosCOVID19.py
 ```
+
+La ejecución de esta aplicación almacenará los datos en un archivo llamado `coronavirus.csv`.
+Si el archivo no existe, creará uno con el siguiente encabezado:
+
+```
+date time,country,tcases,ncases,tdeaths,ndeaths,trecovered,acases,scritical,casesxmillion
+```
+
+Si el archivo existe entonces anexará los nuevos datos leidos.
