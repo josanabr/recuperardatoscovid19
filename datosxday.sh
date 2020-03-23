@@ -24,8 +24,9 @@ maxcasos() {
   cat ${TMPFILE} | cut -d ',' -f 1,6 | uniq
 }
 
-FILENAME="coronavirus.csv"
-COUNTRY="Colombia"
+#FILENAME="coronavirus.csv"
+#COUNTRY="Colombia"
+. covid.cfg
 TMPFILE=$(mktemp)
 if [ ! "x${1}" == "x" ]; then
   COUNTRY="${1}"
