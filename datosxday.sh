@@ -34,10 +34,15 @@ grep ${COUNTRY} ${FILENAME} > ${TMPFILE}
 LASTREPO=$(cat ${TMPFILE} | tail -n 1)
 DATETIME=$( echo ${LASTREPO} | cut -d ',' -f 1)
 TCASES=$( echo ${LASTREPO} | cut -d ',' -f 3)
-ACASES=$( echo ${LASTREPO} | cut -d ',' -f 8)
 NCASES=$( echo ${LASTREPO} | cut -d ',' -f 4)
+ACASES=$( echo ${LASTREPO} | cut -d ',' -f 8)
+TDEATHS=$( echo ${LASTREPO} | cut -d ',' -f 5)
+TRECOVERED=$( echo ${LASTREPO} | cut -d ',' -f 7)
 echo "Pais ${COUNTRY} - datos tomados ${DATETIME}"
 echo -e "\t Numero total de casos (tcases): " ${TCASES}
 echo -e "\t Numero total de casos activos (acases): " ${ACASES}
 echo -e "\t Numero total de nuevos casos (ncases): " ${NCASES}
+echo -e "\t Numero total de recuperados (trecovered): " ${TRECOVERED}
+echo -e "\t Numero total de fallecidos (tdeaths): " ${TDEATHS}
+echo "T. casos activos + T. recuperados + T. fallecidos = T. de casos"
 rm ${TMPFILE}
