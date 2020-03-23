@@ -19,6 +19,7 @@ fi
 ${HOMEDIR}/datosxday.sh > ${NEWUPDATE}
 TEMP1=$(mktemp)
 TEMP2=$(mktemp)
+TEMP3=$(mktemp)
 #
 # El script 'datosxday.sh' en su primera linea da la fecha y hora del dato 
 # tomado. Eso puede cambiar pero los datos quiza no. Solo se compararan los 
@@ -26,13 +27,14 @@ TEMP2=$(mktemp)
 #
 tail -n +2 ${LASTUPDATE} > ${TEMP1}
 tail -n +2 ${NEWUPDATE} > ${TEMP2}
-diferencia=$(diff ${TEMP1} ${TEMP2} | wc -l)
+diferencia=$(diff ${TEMP1} ${TEMP2} | tee ${TEMP3} |  wc -l)
 if [ ${diferencia} -eq 0 ]; then
   # No hubo cambios
   rm ${NEWUPDATE}
 else
   # Hubo cambios y se actualiza el archivo de ultimo reporte, '${LASTUPDATE}'
   echo "Se presentaron cambios"
+  cat ${TEMP3}
   mv ${NEWUPDATE} ${LASTUPDATE}
 fi
-rm ${TEMP1} ${TEMP2}
+rm ${TEMP1} ${TEMP2} ${TEMP3}
