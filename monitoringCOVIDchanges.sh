@@ -8,18 +8,19 @@
 # Author: John Sanabria
 # Date: 2020-03-23
 #
-#TWITCLICOHOME=${HOME}/twitclico
-#LASTREPORT="lastreportcovid.txt"
+# Cargando variables
+#
 . covid.cfg
 CWD=$(pwd)
 TEMP1=$(mktemp)
 ${CWD}/changeCOVID19.sh > ${TEMP1}
 echo "@josanabr" >> ${TEMP1}
-if [ $(wc -l ${TEMP1}) -ne 0 ]; then
+NUMLINES=$(wc -l ${TEMP1} | awk '{print $1}')
+if [ ${NUMLINES} -ne 0 ]; then
   if [ -f ${LASTREPORT} ]; then 
-    cat ${LASTREPORT} | tail -n +2 | head -n -1 | tr -d '\t' | wc -c | ${TWITCLICO}/mytweetstdin.sh
+    cat ${LASTREPORT} | tail -n +2 | head -n -1 | tr -d '\t' | wc -c | ${TWITCLICOHOME}/mytweetstdin.sh
   fi
-  cat ${TEMP1} | ${TWITCLICO}/mytweetstdin.sh
+  cat ${TEMP1} | ${TWITCLICOHOME}/mytweetstdin.sh
 fi
 rm ${TEMP1}
 cd ${CWD}
