@@ -14,12 +14,12 @@
 CWD=$(pwd)
 TEMP1=$(mktemp)
 ${CWD}/changeCOVID19.sh > ${TEMP1}
-echo "@josanabr" >> ${TEMP1}
 NUMLINES=$(wc -l ${TEMP1} | awk '{print $1}')
 if [ ${NUMLINES} -ne 0 ]; then
   if [ -f ${LASTREPORT} ]; then 
-    cat ${LASTREPORT} | tail -n +2 | head -n -1 | tr -d '\t' | wc -c | ${TWITCLICOHOME}/mytweetstdin.sh
+    cat ${LASTREPORT} | tail -n +2 | head -n -1 | tr -d '\t' | {TWITCLICOHOME}/mytweetstdin.sh
   fi
+  echo "@josanabr" >> ${TEMP1}
   cat ${TEMP1} | ${TWITCLICOHOME}/mytweetstdin.sh
 fi
 rm ${TEMP1}
