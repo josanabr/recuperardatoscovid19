@@ -13,10 +13,7 @@
 # Author: John Sanabria
 # Date: 23-03-2020
 #
-#LASTREPORT="lastreportcovid.txt"
-#NEWREPORT="newreportcovid.txt"
-#HOMEDIR="."
-
+# Cargando variables del script
 . covid.cfg
 
 #
