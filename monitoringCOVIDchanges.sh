@@ -19,8 +19,10 @@ if [ ${NUMLINES} -ne 0 ]; then
   if [ -f ${LASTREPORT} ]; then 
     cat ${LASTREPORT} | tail -n +2 | head -n -1 | tr -d '\t' | ${TWITCLICOHOME}/mytweetstdin.sh
   fi
-  echo "@josanabr" >> ${TEMP1}
-  cat ${TEMP1} | ${TWITCLICOHOME}/mytweetstdin.sh
+# Esta parte del codigo mostraba un tweet con lo ejecutado por el comando 'diff'
+# 
+#  echo "@josanabr" >> ${TEMP1}
+#  cat ${TEMP1} | ${TWITCLICOHOME}/mytweetstdin.sh
 fi
 rm ${TEMP1}
 cd ${CWD}
