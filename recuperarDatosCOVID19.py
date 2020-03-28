@@ -13,6 +13,7 @@ import pprint
 import requests
 import sys
 
+MAXFIELDS=10 # Realmente son 11 campos pero se cuentan solo hasta el 10
 #
 # Funcion para imprimir por archivo de error standard
 #
@@ -44,16 +45,19 @@ def trelement2dict(keys, tr):
 		#print("x %s"%tdelement.text)
 		if tdelement.text == "Total:": # Se ignora el 'Total'
 			return None
-		if counter == 0 or counter == 10: # El primer valor y el 10mo son cadenas de caracteres
+		if counter == 0 or counter == MAXFIELDS: # El primer valor y el 10mo son cadenas de caracteres
 #			result[keys[0]] = tdelement.text
 #			strrow = strrow + tdelement.text
-			if counter == 10:
+			if counter == MAXFIELDS:
 				cadenaascii = tdelement.text.replace("\n", "")[:-1]
 			else:
 				cadenaascii = tdelement.text.replace("\n", "")
 			cadenaascii = cadenaascii.encode("ascii","ignore")
 			result[keys[counter]] = str(cadenaascii)
-			strrow = strrow + str(cadenaascii)
+			if counter == MAXFIELDS:
+				strrow = strrow + ",%s"%str(cadenaascii)
+			else:
+				strrow = strrow + str(cadenaascii)
 		else: # Se remueven espacios extra, el simbolo '+' y ','
 			value = tdelement.text.replace(" ", "").strip("+").replace(",","")
 			if value != "": # si no esta vacio es un numero
