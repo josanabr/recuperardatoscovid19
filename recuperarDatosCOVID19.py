@@ -44,11 +44,15 @@ def trelement2dict(keys, tr):
 		#print("x %s"%tdelement.text)
 		if tdelement.text == "Total:": # Se ignora el 'Total'
 			return None
-		if counter == 0: # El primer valor es una cadena de caracteres
+		if counter == 0 or counter == 10: # El primer valor y el 10mo son cadenas de caracteres
 #			result[keys[0]] = tdelement.text
 #			strrow = strrow + tdelement.text
-			cadenaascii = tdelement.text.encode("ascii","ignore")
-			result[keys[0]] = str(cadenaascii)
+			if counter == 10:
+				cadenaascii = tdelement.text.replace("\n", "")[:-1]
+			else:
+				cadenaascii = tdelement.text.replace("\n", "")
+			cadenaascii = cadenaascii.encode("ascii","ignore")
+			result[keys[counter]] = str(cadenaascii)
 			strrow = strrow + str(cadenaascii)
 		else: # Se remueven espacios extra, el simbolo '+' y ','
 			value = tdelement.text.replace(" ", "").strip("+").replace(",","")
@@ -91,8 +95,9 @@ results = soup.find(id="main_table_countries_today"); # print(results.prettify)
 # acases: Active cases
 # scritical: Serious critical
 # casesxmillion: Total cases / 1M population
+# 1stcase: First case
 #
-labels = [ "date time","country", "tcases", "ncases", "tdeaths", "ndeaths", "trecovered", "acases", "scritical", "casesxmillion" ]
+labels = [ "date time","country", "tcases", "ncases", "tdeaths", "ndeaths", "trecovered", "acases", "scritical", "casesxmillion", "1stcase" ]
 #
 # Si el archivo no existe, se crea uno con encabezado. Las etiquetas estan
 # definidas en la variable 'labels' 

@@ -19,6 +19,7 @@
 # 8- acases: Active cases
 # 9- scritical: Serious critical
 # 10- casesxmillion: Total cases / 1M population
+# 11- 1stcase: First case
 #
 maxcasos() {
   cat ${TMPFILE} | cut -d ',' -f 1,6 | uniq
