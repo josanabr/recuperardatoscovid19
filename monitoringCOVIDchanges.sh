@@ -18,6 +18,7 @@ NUMLINES=$(wc -l ${TEMP1} | awk '{print $1}')
 if [ ${NUMLINES} -ne 0 ]; then
   if [ -f ${LASTREPORT} ]; then 
     cat ${LASTREPORT} | tail -n +2 | head -n -1 | tr -d '\t' | ${TWITCLICOHOME}/mytweetstdin.sh
+    cat ${LASTREPORT} | ${CWD}/sendMessage.sh
   fi
 # Esta parte del codigo mostraba un tweet con lo ejecutado por el comando 'diff'
 # 
