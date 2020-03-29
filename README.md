@@ -67,6 +67,7 @@ crontab -e
 ```
 */15 * * * * /home/pi/covid-recuperardatoscovid19.sh
 ```
+* Guarde los cambios y salga de la edición del archivo.
 
 Lo que acaba de hacer es programar la ejecución del script `${HOME}/covid-recuperardatoscovid19.sh` cada 15 minutos. 
 Los datos colectados quedarán en el directorio `${HOME}/recuperardatoscovid19/coronavirus.csv`
