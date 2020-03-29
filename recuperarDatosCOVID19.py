@@ -105,9 +105,10 @@ results = soup.find(id="main_table_countries_today"); # print(results.prettify)
 # acases: Active cases
 # scritical: Serious critical
 # casesxmillion: Total cases / 1M population
+# deathsxmillion: Total deaths / 1M population
 # 1stcase: First case
 #
-labels = [ "date time","country", "tcases", "ncases", "tdeaths", "ndeaths", "trecovered", "acases", "scritical", "casesxmillion", "1stcase" ]
+labels = [ "date time","country", "tcases", "ncases", "tdeaths", "ndeaths", "trecovered", "acases", "scritical", "casesxmillion", "deathsxmillion", "1stcase" ]
 #
 # Si el archivo no existe, se crea uno con encabezado. Las etiquetas estan
 # definidas en la variable 'labels' 
