@@ -39,7 +39,7 @@ La ejecución de esta aplicación almacenará los datos en un archivo llamado `c
 Si el archivo no existe, creará uno con el siguiente encabezado:
 
 ```
-date time,country,tcases,ncases,tdeaths,ndeaths,trecovered,acases,scritical,casesxmillion
+date time,country,tcases,ncases,tdeaths,ndeaths,trecovered,acases,scritical,casesxmillion,1stcase
 ```
 
 Si el archivo existe entonces anexará los nuevos datos leidos.
