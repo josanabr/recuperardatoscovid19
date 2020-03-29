@@ -3,6 +3,12 @@
 # Author: John Sanabria
 # Date: 21-03-2020
 #
+# Modified
+#
+# 28-03-2020	Se adiciono un nuevo campo indicando cuando se registro el 
+#          	primer caso de COVID-19 en cada pais
+# ---
+#
 from __future__ import print_function
 from bs4 import BeautifulSoup
 from os import path
