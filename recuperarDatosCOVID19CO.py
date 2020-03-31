@@ -17,6 +17,7 @@ import json
 import os.path
 import sys
 import subprocess
+import unicodedata
 
 MAXFIELDS=10 # Realmente son 11 campos pero se cuentan solo hasta el 10
 #
@@ -47,7 +48,7 @@ CSVFILE="coronavirusco.csv"
 OUTPUTFILE="coronavirusco.json"
 cmd = "$(pwd)/recuperarDatosCOVID19CO.bash %s"%(OUTPUTFILE)
 start = timer()
-#output = subprocess.check_output(cmd, shell = True)
+output = subprocess.check_output(cmd, shell = True)
 end = timer()
 eprint("Tiempo de acceso fue de %f segundos"%(end - start))
 with open('%s/%s'%(os.getcwd(),OUTPUTFILE)) as f:
@@ -55,9 +56,10 @@ with open('%s/%s'%(os.getcwd(),OUTPUTFILE)) as f:
 #print(data['data'][0])
 with open(CSVFILE,'w') as f:
 	for row in data['data'][0]:
-		line = ",".join(row).encode('utf-8')
-		if row[0] == str(586):
-			lines = line.split(',')[0:9] # hay un bug en este dato
+		line = unicodedata.normalize('NFKD',",".join(row)).encode('ASCII', 'ignore').decode("utf-8")
+		if row[0] == str(586): # hay un bug en este dato
+			lines = line.split(',')[0:9]
 			line = ",".join(lines)
+			continue
 		f.write("%s\n"%(line))
 	
