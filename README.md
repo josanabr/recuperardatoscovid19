@@ -138,6 +138,6 @@ Se presentaron cambios
 
 ---
 
-# Notas para el programador
+## Notas para el programador
 
 En el archivo [`recuperarDatosCOVID19.py`](recuperarDatosCOVID19.py) se encuentran los campos de los que se lleva registro.
