@@ -3,13 +3,13 @@
 En este repositorio se encuentran dos proyectos. 
 Uno que se encarga de recuperar datos del desarrollo del COVID19 alrededor del mundo y otro que monitorea el desarrollo del COVID19 en Colombia.
 
-* [recuperarDatosCOVID19.py](#recuperardatoscovid19.py)
-* [recuperarDatosCOVID19CO.py](#recuperardatoscovid19co.py)
+* [recuperarDatosCOVID19](#recuperardatoscovid19)
+* [recuperarDatosCOVID19CO](#recuperardatoscovid19co)
 * [Notas para el programador](#notas-para-el-programador)
 
 ---
 
-# `recuperarDatosCOVID19.py`
+# recuperarDatosCOVID19
 
 Este script en Python permite recuperar datos del sitio web [https://www.worldometers.info/coronavirus/](https://www.worldometers.info/coronavirus/). 
 Este sitio mantiene datos actualizados relativos a los contagiados por COVID 19 a nivel mundial. 
@@ -85,7 +85,7 @@ Los datos colectados quedarán en el directorio `${HOME}/recuperardatoscovid19/c
 
 ---
 
-# `recuperarDatosCOVID19CO.py`
+# recuperarDatosCOVID19CO
 
 Este parte del proyecto consta de dos archivos. 
 El archivo `recuperarDatosCOVID19CO.py` y el archivo `recuperarDatosCOVID19CO.bash`.
