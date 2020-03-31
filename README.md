@@ -1,10 +1,21 @@
 # Datos del COVID 19
 
+En este repositorio se encuentran dos proyectos. 
+Uno que se encarga de recuperar datos del desarrollo del COVID19 alrededor del mundo y otro que monitorea el desarrollo del COVID19 en Colombia.
+
+* [recuperarDatosCOVID19.py](#recuperardatoscovid19.py)
+* [recuperarDatosCOVID19CO.py](#recuperardatoscovid19co.py)
+* [Notas para el programador](#notas-para-el-programador)
+
+---
+
+# `recuperarDatosCOVID19.py`
+
 Este script en Python permite recuperar datos del sitio web [https://www.worldometers.info/coronavirus/](https://www.worldometers.info/coronavirus/). 
 Este sitio mantiene datos actualizados relativos a los contagiados por COVID 19 a nivel mundial. 
 Este script toma los datos de esta página y los almacena en un archivo .CSV llamado `coronavirus.csv`.
 
-# Instalacion
+## Instalacion
 
 Para la instalación, lo primero que se debe hacer es descargar/clonar este repositorio.
 
@@ -27,7 +38,7 @@ Una vez se prepara el entorno para la ejecución del script, se hace la instalac
 pip3 install -r requirements.txt
 ```
 
-# Ejecucion
+## Ejecucion
 
 Para ejecutar el script se invoca el siguiente comando:
 
@@ -44,7 +55,7 @@ date time,country,tcases,ncases,tdeaths,ndeaths,trecovered,acases,scritical,case
 
 Si el archivo existe entonces anexará los nuevos datos leidos.
 
-# Recoleccion periodica de datos
+## Recoleccion periodica de datos
 
 Si usted desea que el script `recuperarDatosCOVID19.py` se ejecute periódicamente, llevar a cabo los siguientes pasos:
 
@@ -73,6 +84,35 @@ Lo que acaba de hacer es programar la ejecución del script `${HOME}/covid-recup
 Los datos colectados quedarán en el directorio `${HOME}/recuperardatoscovid19/coronavirus.csv`
 
 ---
+
+# `recuperarDatosCOVID19CO.py`
+
+Este parte del proyecto consta de dos archivos. 
+El archivo `recuperarDatosCOVID19CO.py` y el archivo `recuperarDatosCOVID19CO.bash`.
+El archivo `.py` invoca la ejecución del archivo `.bash`. 
+El archivo `.bash` hace una conexión HTTP usando el comando `curl` a un **frame** dentro de esta página web [https://www.ins.gov.co/Noticias/Paginas/Coronavirus.aspx](https://www.ins.gov.co/Noticias/Paginas/Coronavirus.aspx).
+
+Para ejecutar este script y traer los datos mas recientes se corre el siguiente comando:
+
+```
+python3 recuperardatosCOVID19CO.py
+```
+
+Este archivo por defecto genera un archivo llamado `coronavirusco.csv`.
+
+Este archivo se puede procesar a través de un Jupyter notebook llamado [`COVID19CO.ipynb`](COVID19CO.ipynb).
+Para poder interactuar con los datos en `coronavirusco.csv` se sugiere ejecutar el siguiente comando:
+
+```
+docker run -d --name jupyter -p 8888:8888 -v $(pwd):/opt playniuniu/jupyter-pandas
+```
+
+Una vez lanzado el contenedor se puede visitar el sitio [http://localhost:8888](http://localhost:8888).
+Cargar el notebook  `COVID19CO.ipynb`. 
+
+---
+
+# Notas para el programador
 
 Se ha creado un archivo llamado [`datoxday.sh`](datosxday.sh) en el cual muestra como ha sido el comportamiento de un país respecto a su evolución con respecto al COVID 19.
 Esta es una salida posible de la ejecución del comando:
