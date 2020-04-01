@@ -13,6 +13,7 @@ from __future__ import print_function
 from os import path
 from timeit import default_timer as timer
 import datetime
+import io
 import json
 import os.path
 import sys
@@ -51,7 +52,8 @@ start = timer()
 output = subprocess.check_output(cmd, shell = True)
 end = timer()
 eprint("Tiempo de acceso fue de %f segundos"%(end - start))
-with open('%s/%s'%(os.getcwd(),OUTPUTFILE)) as f:
+#with open('%s/%s'%(os.getcwd(),OUTPUTFILE)) as f:
+with io.open('%s/%s'%(os.getcwd(),OUTPUTFILE),"r",encoding="utf-8") as f:
 	data = json.load(f)
 #print(data['data'][0])
 with open(CSVFILE,'w') as f:
