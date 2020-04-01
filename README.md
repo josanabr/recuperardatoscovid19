@@ -110,6 +110,33 @@ docker run -d --name jupyter -p 8888:8888 -v $(pwd):/opt playniuniu/jupyter-pand
 Una vez lanzado el contenedor se puede visitar el sitio [http://localhost:8888](http://localhost:8888).
 Cargar el notebook  `COVID19CO.ipynb`. 
 
+## Recoleccion periodica de datos
+
+Si usted desea que el script `recuperarDatosCOVID19CO.py` se ejecute periódicamente, llevar a cabo los siguientes pasos:
+
+* Crear un archivo llamado `covid-recuperardatoscovid19co.sh` en el directorio `${HOME}`. 
+* Este archivo debe tener las siguientes líneas:
+```
+#!/usr/bin/env bash
+CWD=$(pwd)
+cd ${HOME}/recuperardatoscovid19
+python3 recuperarDatosCOVID19CO.py && echo $(date) > recuperardatoscovid19co.txt
+cd ${CWD}
+```
+* Ejecute el comando `cat ${HOME}/covid-recuperardatoscovid19co.sh`. Le deberá mostrar las líneas del ítem anterior. Cambie los permisos de este archivo de la siguiente manera `chmod +x ${HOME}/covid-recuperardatoscovid19co.sh`. 
+* Adicione esta tarea para que se ejecute de forma periódica con el comando `cron`. Edite el archivo de configuracion de tareas de `cron`
+```
+crontab -e
+```
+* Al final del archivo adicione las siguientes líneas:
+```
+*/15 * * * * /home/pi/covid-recuperardatoscovid19co.sh
+```
+* **IMPORTANTE** Cambie el nombre del usuario `pi` por el nombre de su usuario. Guarde los cambios y salga de la edición del archivo.
+
+Lo que acaba de hacer es programar la ejecución del script `${HOME}/covid-recuperardatoscovid19co.sh` cada 15 minutos. 
+Los datos colectados quedarán en el directorio `${HOME}/recuperardatoscovid19/coronavirusco.csv`
+
 ---
 
 # Notas para el programador
