@@ -11,7 +11,7 @@ while read line; do
 	MESSAGE=$( echo -e "${MESSAGE} ${line}" ) 
 done < "${1:-/dev/stdin}"
 curl 'https://api.twilio.com/2010-04-01/Accounts/AC3fc7d2cc0bee3038fb0a785dd2d9595d/Messages.json' -X POST \
---data-urlencode 'To=whatsapp:+573167581536' \
+--data-urlencode 'To=whatsapp:+<YOURPHONENUMBER>' \
 --data-urlencode 'From=whatsapp:+14155238886' \
 --data-urlencode "Body=$(echo ${MESSAGE} )" \
 -u AC3fc7d2cc0bee3038fb0a785dd2d9595d:915d6fdeb6a6bfc93632bbcaf1518cbf
