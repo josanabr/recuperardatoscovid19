@@ -168,3 +168,7 @@ Se presentaron cambios
 ## Notas para el programador
 
 En el archivo [`recuperarDatosCOVID19.py`](recuperarDatosCOVID19.py) se encuentran los campos de los que se lleva registro.
+
+* La variable `MAXFIELDS` corresponde al total de campos menos 1. 
+* Modificar la línea que define la variable `labels`
+* Tener cuidado de la función `trelement2dict` porque en esta función se hacen consideraciones relativas al "parseo" de datos, e.g. de texto a numérico.

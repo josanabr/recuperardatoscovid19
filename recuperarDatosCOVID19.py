@@ -7,6 +7,8 @@
 #
 # 28-03-2020	Se adiciono un nuevo campo indicando cuando se registro el 
 #          	primer caso de COVID-19 en cada pais
+# 04-04-2020    Eliminaron un campo llamado, First Case, pero adicionaron
+#               dos llamados: "Total Tests", "Tests/ 1M pop"
 # ---
 #
 from __future__ import print_function
@@ -19,7 +21,7 @@ import pprint
 import requests
 import sys
 
-MAXFIELDS=10 # Realmente son 11 campos pero se cuentan solo hasta el 10
+MAXFIELDS=11 # Realmente son 12 campos pero se cuentan solo hasta el 11
 #
 # Funcion para imprimir por archivo de error standard
 #
@@ -51,12 +53,8 @@ def trelement2dict(keys, tr):
 		#print("x %s"%tdelement.text)
 		if tdelement.text == "Total:": # Se ignora el 'Total'
 			return None
-		if counter == 0 or counter == MAXFIELDS: # El primer valor y el 10mo son cadenas de caracteres
-#			result[keys[0]] = tdelement.text
-#			strrow = strrow + tdelement.text
-			if counter == MAXFIELDS:
-				cadenaascii = tdelement.text.replace("\n", "")[:-1]
-			else:
+		if counter == 0: # El primer valor
+			if counter == 0:
 				cadenaascii = tdelement.text.replace("\n", "")
 			cadenaascii = cadenaascii.encode("ascii","ignore")
 			result[keys[counter]] = str(cadenaascii)
@@ -96,19 +94,20 @@ eprint("Tiempo de parsing fue %f segundos"%(end - start))
 results = soup.find(id="main_table_countries_today"); # print(results.prettify)
 #
 # Labels meaning:
-# country
-# tcases: Total cases
-# ncases: New cases
-# tdeaths: Total deaths
-# ndeaths: New deaths
-# trecovered: Total recovered
-# acases: Active cases
-# scritical: Serious critical
-# casesxmillion: Total cases / 1M population
-# deathsxmillion: Total deaths / 1M population
-# 1stcase: First case
+# - country
+# - tcases: Total cases
+# - ncases: New cases
+# - tdeaths: Total deaths
+# - ndeaths: New deaths
+# - trecovered: Total recovered
+# - acases: Active cases
+# - scritical: Serious critical
+# - casesxmillion: Total cases / 1M population
+# - deathsxmillion: Total deaths / 1M population
+# - ttests: Total Tests
+# - testsxmillion: Tests / 1M population 
 #
-labels = [ "date time","country", "tcases", "ncases", "tdeaths", "ndeaths", "trecovered", "acases", "scritical", "casesxmillion", "deathsxmillion", "1stcase" ]
+labels = [ "date time","country", "tcases", "ncases", "tdeaths", "ndeaths", "trecovered", "acases", "scritical", "casesxmillion", "deathsxmillion", "ttests", "testsxmillion" ]
 #
 # Si el archivo no existe, se crea uno con encabezado. Las etiquetas estan
 # definidas en la variable 'labels' 
