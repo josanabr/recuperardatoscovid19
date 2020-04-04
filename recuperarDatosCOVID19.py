@@ -90,7 +90,7 @@ CDATETIME = datetime.datetime.now()
 
 logging.basicConfig(level=logging.DEBUG,
 		filename = 'coronavirus.log',
-		filemode = 'w',
+		filemode = 'a',
 		format = '%(asctime)s - %(levelname)s - %(message)s')
 start = timer()
 page = requests.get(URL)
