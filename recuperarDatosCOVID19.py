@@ -16,10 +16,13 @@ from bs4 import BeautifulSoup
 from os import path
 from timeit import default_timer as timer
 import datetime
+import logging
 import os.path
 import pprint
 import requests
+import shutil
 import sys
+import tempfile
 
 MAXFIELDS=11 # Realmente son 12 campos pero se cuentan solo hasta el 11
 #
@@ -52,7 +55,7 @@ def trelement2dict(keys, tr):
 	for tdelement in tdelements:
 		#print("x %s"%tdelement.text)
 		if tdelement.text == "Total:": # Se ignora el 'Total'
-			return None
+			return None, None
 		if counter == 0: # El primer valor
 			if counter == 0:
 				cadenaascii = tdelement.text.replace("\n", "")
@@ -70,16 +73,25 @@ def trelement2dict(keys, tr):
 			strrow = strrow + ",%s"%(value)
 		counter = counter + 1 # se usa para indexar el arreglo 'keys'
 	if strrow == "%s,"%str(CDATETIME): # no hubo datos 
-		return result
-	with open(CSVFILE,'a',newline='') as f: # se almacenan los datos
-		f.write("%s\n"%strrow)
-	return result
+		return None, None
+	return result, strrow
 	
+#
+#
+# MAIN
+#
+#
 
 URL = "https://www.worldometers.info/coronavirus/"
 CSVFILE = "coronavirus.csv"
+LASTREPORT = "coronavirus.csv.last"
+TEMPORARYFILE = "temp.coronavirus.temp"
 CDATETIME = datetime.datetime.now()
 
+logging.basicConfig(level=logging.DEBUG,
+		filename = 'coronavirus.log',
+		filemode = 'w',
+		format = '%(asctime)s - %(levelname)s - %(message)s')
 start = timer()
 page = requests.get(URL)
 end = timer()
@@ -118,8 +130,45 @@ if not path.exists(CSVFILE):
 		f.write("%s\n"%(",".join(labels)))
 #
 # En la tabla 'main_table_countries_today' se recuperan todas las filas, 'tr'
+# Estas filas se almacenan en un archivo temporal
 #
 elements = results.find_all("tr")
+f = open(TEMPORARYFILE,"w")
 for jobelement in elements:
-	dictio = trelement2dict(labels, jobelement)
-	#print(dictio)
+	dictio,strrow = trelement2dict(labels, jobelement)
+	if strrow == None:
+		continue
+	f.write("%s\n"%strrow)
+f.close()
+#
+# Se comparan los datos recien leidos con los datos leidos en el ultimo reporte
+# Si no existe el archivo de ultimo reporte entonces todos los datos recien
+# leidos se insertan en el CSVFILE
+#
+f = open(TEMPORARYFILE,"r")
+csvfile = open(CSVFILE,"a")
+if not path.exists(LASTREPORT): 
+	flr = open(LASTREPORT,"w")
+	for x in f:
+		csvfile.write(x)
+		flr.write(x)
+	flr.close()
+else:
+	flr = open(LASTREPORT, "r")
+	for x in f: # 'x' datos recien leidos
+		for y in flr: # 'y' datos del ultimo reporte
+			recent = x.split(",")[1:]
+			lr = y.split(",")[1:] # lr: LastReport
+			if recent[0] == lr[0]: #Encuentro el pais, recent y last
+				if ",".join(recent) != ",".join(lr): # diferent
+					logging.debug("RECENT: %s BEFORE: %s"%(x[:-1],y[:-1]))
+					csvfile.write(x) #diferences are written
+				break
+		flr.seek(0) 
+	flr.close()
+csvfile.close()
+f.close()
+#
+# TEMPORARYFILE contains recent data. LASTREPORT contains prior data. Then,
+# recent data now becomes last report
+shutil.move(TEMPORARYFILE, LASTREPORT) # Temporary fil
