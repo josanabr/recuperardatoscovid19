@@ -156,14 +156,19 @@ if not path.exists(LASTREPORT):
 else:
 	flr = open(LASTREPORT, "r")
 	for x in f: # 'x' datos recien leidos
+		found = False
 		for y in flr: # 'y' datos del ultimo reporte
 			recent = x.split(",")[1:]
 			lr = y.split(",")[1:] # lr: LastReport
 			if recent[0] == lr[0]: #Encuentro el pais, recent y last
+				found = True
 				if ",".join(recent) != ",".join(lr): # diferent
 					logging.debug("RECENT: %s BEFORE: %s"%(x[:-1],y[:-1]))
 					csvfile.write(x) #diferences are written
 				break
+		if not found:
+			logging.debug("PRIMERA ENTRADA: %s"%(x[:-1]))
+			csvfile.write(x)
 		flr.seek(0) 
 	flr.close()
 csvfile.close()
