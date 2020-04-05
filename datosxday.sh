@@ -58,11 +58,11 @@ NCASES=$( obtvalor "${LASTREPO}" 4)
 ACASES=$( obtvalor "${LASTREPO}" 8)
 TDEATHS=$( obtvalor "${LASTREPO}" 5)
 TRECOVERED=$( obtvalor "${LASTREPO}" 7)
-echo "Pais ${COUNTRY} - datos tomados ${DATETIME}"
-echo -e "\n Numero total de casos (tcases): " ${TCASES}
-echo -e "\n Numero total de casos activos (acases): " ${ACASES}
-echo -e "\n Numero total de nuevos casos (ncases): " ${NCASES}
-echo -e "\n Numero total de recuperados (trecovered): " ${TRECOVERED}
-echo -e "\n Numero total de fallecidos (tdeaths): " ${TDEATHS}
+echo "Pais ${COUNTRY} - datos tomados ${DATETIME} "
+echo -e "Numero total de casos (tcases): ${TCASES} "
+echo -e "Numero total de casos activos (acases): ${ACASES} "
+echo -e "Numero total de nuevos casos (ncases): ${NCASES} "
+echo -e "Numero total de recuperados (trecovered): ${TRECOVERED} "
+echo -e "Numero total de fallecidos (tdeaths): ${TDEATHS} "
 #echo "T. casos activos + T. recuperados + T. fallecidos = T. de casos"
 rm ${TMPFILE}
