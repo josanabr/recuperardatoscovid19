@@ -11,9 +11,17 @@
 # Cargando variables
 #
 . covid.cfg
+#
+# MAIN
+# 
+if [ ! "${1}" == "" ]; then
+  COUNTRY="${1}"
+fi
+LASTREPORT="${LASTREPORT}-${COUNTRY}.txt"
+NEWREPORT="${NEWREPORT}-${COUNTRY}.txt"
 CWD=$(pwd)
 TEMP1=$(mktemp)
-${CWD}/changeCOVID19.sh > ${TEMP1}
+${CWD}/changeCOVID19.sh "${COUNTRY}" > ${TEMP1}
 NUMLINES=$(wc -l ${TEMP1} | awk '{print $1}')
 if [ ${NUMLINES} -ne 0 ]; then
   if [ -f ${LASTREPORT} ]; then 
