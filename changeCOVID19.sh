@@ -28,7 +28,7 @@ NEWREPORT="${NEWREPORT}-${COUNTRY}.txt"
 # script
 #
 if [ ! -f ${LASTREPORT} ]; then
-	${HOMEDIR}/datosxday.sh > ${LASTREPORT} && exit 0
+	${HOMEDIR}/datosxday.sh ${COUNTRY} > ${LASTREPORT} && exit 0
 fi
 ${HOMEDIR}/datosxday.sh ${COUNTRY} > ${NEWREPORT}
 TEMP1=$(mktemp)

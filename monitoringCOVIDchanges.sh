@@ -34,4 +34,3 @@ if [ ${NUMLINES} -ne 0 ]; then
 #  cat ${TEMP1} | ${TWITCLICOHOME}/mytweetstdin.sh
 fi
 rm ${TEMP1}
-cd ${CWD}
