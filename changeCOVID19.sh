@@ -30,7 +30,7 @@ NEWREPORT="${NEWREPORT}-${COUNTRY}.txt"
 if [ ! -f ${LASTREPORT} ]; then
 	${HOMEDIR}/datosxday.sh > ${LASTREPORT} && exit 0
 fi
-${HOMEDIR}/datosxday.sh > ${NEWREPORT}
+${HOMEDIR}/datosxday.sh ${COUNTRY} > ${NEWREPORT}
 TEMP1=$(mktemp)
 TEMP2=$(mktemp)
 TEMP3=$(mktemp)
