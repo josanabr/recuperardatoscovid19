@@ -38,6 +38,7 @@ obtvalor() {
  else
    resultado="[${valor}]"
  fi
+ echo "${resultado}"
 }
 #
 # Cargando variables del script
