@@ -24,25 +24,45 @@
 maxcasos() {
   cat ${TMPFILE} | cut -d ',' -f 1,6 | uniq
 }
+#
+# Esta funcion toma una cadena e identifica si un campo dado tiene un valor
+# o no. Si no tiene valor devolvera la cadena 'NaN'. De otra forma, devolvera
+# el valor encontrado
+#
+obtvalor() {
+ lastrepo="${1}"
+ campo="${2}"
+ valor=$( echo "${lastrepo}" | cut -d ',' -f ${campo} )
+ if [ "${valor}" == "" ]; then
+   resultado="[NaN]"
+ else
+   resultado="[${valor}]"
+ fi
+}
+#
 # Cargando variables del script
+#
 . covid.cfg
+#
+# MAIN
+#
 TMPFILE=$(mktemp)
 if [ ! "x${1}" == "x" ]; then
   COUNTRY="${1}"
 fi
 grep ${COUNTRY} ${FILENAME} > ${TMPFILE}
 LASTREPO=$(cat ${TMPFILE} | tail -n 1)
-DATETIME=$( echo ${LASTREPO} | cut -d ',' -f 1)
-TCASES=$( echo ${LASTREPO} | cut -d ',' -f 3)
-NCASES=$( echo ${LASTREPO} | cut -d ',' -f 4)
-ACASES=$( echo ${LASTREPO} | cut -d ',' -f 8)
-TDEATHS=$( echo ${LASTREPO} | cut -d ',' -f 5)
-TRECOVERED=$( echo ${LASTREPO} | cut -d ',' -f 7)
+DATETIME=$( obtvalor "${LASTREPO}" 1 )
+TCASES=$( obtvalor "${LASTREPO}" 3)
+NCASES=$( obtvalor "${LASTREPO}" 4)
+ACASES=$( obtvalor "${LASTREPO}" 8)
+TDEATHS=$( obtvalor "${LASTREPO}" 5)
+TRECOVERED=$( obtvalor "${LASTREPO}" 7)
 echo "Pais ${COUNTRY} - datos tomados ${DATETIME}"
-echo -e "\t Numero total de casos (tcases): " ${TCASES}
-echo -e "\t Numero total de casos activos (acases): " ${ACASES}
-echo -e "\t Numero total de nuevos casos (ncases): " ${NCASES}
-echo -e "\t Numero total de recuperados (trecovered): " ${TRECOVERED}
-echo -e "\t Numero total de fallecidos (tdeaths): " ${TDEATHS}
-echo "T. casos activos + T. recuperados + T. fallecidos = T. de casos"
+echo -e "\n Numero total de casos (tcases): " ${TCASES}
+echo -e "\n Numero total de casos activos (acases): " ${ACASES}
+echo -e "\n Numero total de nuevos casos (ncases): " ${NCASES}
+echo -e "\n Numero total de recuperados (trecovered): " ${TRECOVERED}
+echo -e "\n Numero total de fallecidos (tdeaths): " ${TDEATHS}
+#echo "T. casos activos + T. recuperados + T. fallecidos = T. de casos"
 rm ${TMPFILE}

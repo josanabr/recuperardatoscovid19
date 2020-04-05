@@ -15,7 +15,14 @@
 #
 # Cargando variables del script
 . covid.cfg
-
+#
+# MAIN
+#
+if [ ! "${1}" == "" ]; then
+  COUNTRY="${1}"
+fi
+LASTREPORT="${LASTREPORT}-${COUNTRY}.txt"
+NEWREPORT="${NEWREPORT}-${COUNTRY}.txt"
 #
 # Si no hay archivo de ultimo reporte, se crea y se termina la ejecucion del
 # script
