@@ -19,7 +19,9 @@
 # 8- acases: Active cases
 # 9- scritical: Serious critical
 # 10- casesxmillion: Total cases / 1M population
-# 11- 1stcase: First case
+# 11- deathsxmillion: Total deaths / 1M population
+# 12- ttests: Total Tests
+# 13- testsxmillion: Tests / 1M population 
 #
 maxcasos() {
   cat ${TMPFILE} | cut -d ',' -f 1,6 | uniq
@@ -34,9 +36,9 @@ obtvalor() {
  campo="${2}"
  valor=$( echo "${lastrepo}" | cut -d ',' -f ${campo} )
  if [ "${valor}" == "" ]; then
-   resultado="[NaN]"
+   resultado="-"
  else
-   resultado="[${valor}]"
+   resultado="${valor}"
  fi
  echo "${resultado}"
 }
@@ -59,11 +61,15 @@ NCASES=$( obtvalor "${LASTREPO}" 4)
 ACASES=$( obtvalor "${LASTREPO}" 8)
 TDEATHS=$( obtvalor "${LASTREPO}" 5)
 TRECOVERED=$( obtvalor "${LASTREPO}" 7)
+TTESTS=$( obtvalor "${LASTREPO}" 12)
+TESTSX1M=$( obtvalor "${LASTREPO}" 13)
 echo "Pais ${COUNTRY} - datos tomados ${DATETIME} "
-echo -e "Numero total de casos: ${TCASES} "
-echo -e "Numero total de casos activos: ${ACASES} "
-echo -e "Numero total de nuevos casos: ${NCASES} "
-echo -e "Numero total de recuperados: ${TRECOVERED} "
-echo -e "Numero total de fallecidos: ${TDEATHS} "
+echo -e "Total de casos: ${TCASES} "
+echo -e "Casos activos: ${ACASES} "
+echo -e "Nuevos casos: ${NCASES} "
+echo -e "Recuperados: ${TRECOVERED} "
+echo -e "Fallecidos: ${TDEATHS} "
+echo -e "Tests: ${TTESTS} "
+echo -e "Tests x 1M: ${TESTSX1M} "
 #echo "T. casos activos + T. recuperados + T. fallecidos = T. de casos"
 rm ${TMPFILE}
