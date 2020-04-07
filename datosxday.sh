@@ -64,12 +64,12 @@ TRECOVERED=$( obtvalor "${LASTREPO}" 7)
 TTESTS=$( obtvalor "${LASTREPO}" 12)
 TESTSX1M=$( obtvalor "${LASTREPO}" 13)
 echo "Pais ${COUNTRY} - datos tomados ${DATETIME} "
-echo -e "Total de casos: ${TCASES} "
-echo -e "Casos activos: ${ACASES} "
-echo -e "Nuevos casos: ${NCASES} "
-echo -e "Recuperados: ${TRECOVERED} "
-echo -e "Fallecidos: ${TDEATHS} "
-echo -e "Tests: ${TTESTS} "
-echo -e "Tests x 1M: ${TESTSX1M} "
+echo "Total de casos: ${TCASES} "
+echo "Casos activos: ${ACASES} "
+echo "Nuevos casos: ${NCASES} "
+echo "Recuperados: ${TRECOVERED} "
+echo "Fallecidos: ${TDEATHS} "
+echo "Tests: ${TTESTS} "
+echo "Tests x 1M: ${TESTSX1M} "
 #echo "T. casos activos + T. recuperados + T. fallecidos = T. de casos"
 rm ${TMPFILE}
