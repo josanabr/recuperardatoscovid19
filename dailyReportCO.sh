@@ -15,8 +15,12 @@ fi
 IFS=$'\n'
 COUNT=1
 RESPONSESTR=""
-for i in $(tail -n +2 ${REPORTCO}.csv  | cut -d ',' -f 3 | sort --ignore-case | uniq -c | sort -rn | tr -s ' ' | head -n 5); do 
-  RESPONSESTR="${RESPONSESTR} ${COUNT} ${i:1:${#i}-1} "
+TOPE=5
+for i in $(tail -n +2 ${REPORTCO}.csv  | cut -d ',' -f 3 | sort --ignore-case | uniq -c | sort -rn | tr -s ' ' | head -n ${TOPE}); do 
+  RESPONSESTR="${RESPONSESTR} (${COUNT}) ${i:1:${#i}-1}"
+  if [ ${COUNT} -ne ${TOPE} ]; then
+    RESPONSESTR="${RESPONSESTR},"
+  fi
   COUNT=$(( COUNT + 1))
 done
-echo "RANK COVID19 CO ${RESPONSESTR}"
+echo "RANK COVID19 CO${RESPONSESTR}"
