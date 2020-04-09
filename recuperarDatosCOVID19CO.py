@@ -52,10 +52,8 @@ start = timer()
 output = subprocess.check_output(cmd, shell = True)
 end = timer()
 eprint("Tiempo de acceso fue de %f segundos"%(end - start))
-#with open('%s/%s'%(os.getcwd(),OUTPUTFILE)) as f:
 with io.open('%s/%s'%(os.getcwd(),OUTPUTFILE),"r",encoding="utf-8") as f:
 	data = json.load(f)
-#print(data['data'][0])
 with open(CSVFILE,'w') as f:
 	for row in data['data'][0]:
 		line = unicodedata.normalize('NFKD',",".join(row)).encode('ASCII', 'ignore').decode("utf-8")
