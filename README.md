@@ -139,6 +139,30 @@ Los datos colectados quedarán en el directorio `${HOME}/recuperardatoscovid19/c
 
 ---
 
+# Generar reporte ranking COVID 19 Colombia
+
+El script `dailyReportCO.sh` imprime por pantalla el ranking de las ciudades con mayores índices de contagiados con COVID 19.
+Para llevar a cabo el envio periódico de este reporte se sugiere crear un script llamado `covid-dailyreportco.sh` con el siguiente contenido:
+
+```
+#!/usr/bin/env bash
+CWD=$(pwd)
+cd ${HOME}/recuperardatoscovid19
+. covid.cfg
+./dailyReportCO.sh | ${TWITCLICOHOME}/mytweetstdin.sh
+cd ${CWD}
+```
+
+La ejecución de este script se puede programar para que se haga al final del día, de la siguiente manera:
+
+```
+5 22 * * * /home/pi/covid-dailyreportco.sh
+```
+
+El script se ejecutará todos los días a las 10:05 pm.
+
+---
+
 # Notas para el programador
 
 Se ha creado un archivo llamado [`datoxday.sh`](datosxday.sh) en el cual muestra como ha sido el comportamiento de un país respecto a su evolución con respecto al COVID 19.
