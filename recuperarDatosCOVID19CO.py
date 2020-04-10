@@ -20,39 +20,23 @@ import sys
 import subprocess
 import unicodedata
 
-MAXFIELDS=10 # Realmente son 11 campos pero se cuentan solo hasta el 10
 #
 # Funcion para imprimir por archivo de error standard
 #
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
-#
-# Funcion que convierte una cadena de caracteres a numero
-#
-def num(s):
-    try:
-        return int(s)
-    except ValueError:
-        return float(s)
+import covid
 
-#
-# Esta funcion toma una fila (tr) de la pagina
-# "https://www.worldometers.info/coronavirus/" de la tabla cuyo 'id' es
-# "main_table_countries_today"
-# 
-def trelement2dict(keys, tr):
-	return 0
+CSVFILE="%s/%s"%(covid.STORAGEDIR,"coronavirusco.csv")
+OUTPUTFILE="%s/%s"%(covid.STORAGEDIR,"coronavirusco.json")
 
-
-CSVFILE="coronavirusco.csv"
-OUTPUTFILE="coronavirusco.json"
 cmd = "$(pwd)/recuperarDatosCOVID19CO.bash %s"%(OUTPUTFILE)
 start = timer()
 output = subprocess.check_output(cmd, shell = True)
 end = timer()
 eprint("Tiempo de acceso fue de %f segundos"%(end - start))
-with io.open('%s/%s'%(os.getcwd(),OUTPUTFILE),"r",encoding="utf-8") as f:
+with io.open('%s'%(OUTPUTFILE),"r",encoding="utf-8") as f:
 	data = json.load(f)
 with open(CSVFILE,'w') as f:
 	for row in data['data'][0]:

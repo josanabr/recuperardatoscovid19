@@ -6,7 +6,10 @@
 # AUTHOR: John Sanabria - john.sanabria@correounivalle.edu.co
 # DATE: 2020-03-31
 #
-OUTPUTFILE="datos.json"
+
+. covid.cfg
+
+OUTPUTFILE="${STORAGEDIR}/datos.json"
 if [ ! "$1" == "" ]; then
   OUTPUTFILE="${1}"
 fi
