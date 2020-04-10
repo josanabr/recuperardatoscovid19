@@ -8,7 +8,7 @@
 # DATE: 2020-04-08
 #
 . covid.cfg
-if [ ! -f "${REPORTCO}.csv" ]; then
+if [ ! -f "${STORAGEDIR}/${REPORTCO}.csv" ]; then
   echo "Archivo de reporte de Colombia no esta disponible"
   exit 1
 fi
@@ -16,7 +16,7 @@ IFS=$'\n'
 COUNT=1
 RESPONSESTR=""
 TOPE=5
-for i in $(tail -n +2 ${REPORTCO}.csv  | cut -d ',' -f 3 | sort --ignore-case | uniq -c | sort -rn | tr -s ' ' | head -n ${TOPE}); do 
+for i in $(tail -n +2 ${STORAGEDIR}/${REPORTCO}.csv  | cut -d ',' -f 3 | sort --ignore-case | uniq -c | sort -rn | tr -s ' ' | head -n ${TOPE}); do 
   RESPONSESTR="${RESPONSESTR} (${COUNT}) ${i:1:${#i}-1}"
   if [ ${COUNT} -ne ${TOPE} ]; then
     RESPONSESTR="${RESPONSESTR},"
