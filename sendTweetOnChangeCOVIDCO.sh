@@ -12,15 +12,18 @@ fi
 TOTAL=$(tail -n 1 ${REPORTCO}.csv | cut -d ',' -f 1)
 RESPSTR="Informe COVID19 CO Total: ${TOTAL}"
 IFS=$'\n'
+STRDEAD="Fallecidos "
+STRRECOVERED="Recuperados "
 for line in $(cat ${LASTREPORTCO}.last); do
-  LUGAR=$(echo ${line} | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
+  LUGAR=$(echo ${line} | awk '{for (i=2; i<=NF; i++) print $i}' | tr '[:upper:]' '[:lower:]')
   NUMBER=$(echo ${line} | awk '{print $1}' | tr '[:upper:]' '[:lower:]')
   if [ "${LUGAR}" == "fallecido" ]; then
-    RESPSTR="${RESPSTR} fallecidos ${NUMBER}"
+    STRDEAD=" \b. ${STRDEAD} ${NUMBER}."
   elif [ "${LUGAR}" == "recuperado" ]; then
-    RESPSTR="${RESPSTR} recuperados ${NUMBER}"
+    STRRECOVERED=" ${STRRECOVERED} ${NUMBER}."
   else
-    RESPSTR="${RESPSTR} en ${LUGAR} ${NUMBER}"
+    RESPSTR="${RESPSTR}, en ${LUGAR} ${NUMBER}"
   fi
 done
-echo ${RESPSTR} |  ${TWITCLICOHOME}/mytweetstdin.sh
+echo -e ${RESPSTR}${STRDEAD}${STRRECOVERED} |  ${TWITCLICOHOME}/mytweetstdin.sh
+
