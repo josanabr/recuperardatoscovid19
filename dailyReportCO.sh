@@ -22,10 +22,10 @@ for i in $(tail -n +2 ${STORAGEDIR}/${REPORTCO}.csv  | cut -d ',' -f 3 | sort --
   REPORTADOS=$(echo ${i:0:${#i}} | awk '{print $1}')
   TOTALREPORTADOS=$(( ${TOTALREPORTADOS} + ${REPORTADOS} ))
   CIUDAD=$(echo ${i:0:${#i}} | awk '{print $2}')
-  RESPONSESTR="${RESPONSESTR} (${COUNT}) ${REPORTADOS}[$(( ${REPORTADOS} * 100 / ${TOTAL}))%] ${CIUDAD}"
+  RESPONSESTR="${RESPONSESTR} (${COUNT}) ${CIUDAD} ${REPORTADOS}($(( ${REPORTADOS} * 100 / ${TOTAL}))%)"
   if [ ${COUNT} -ne ${TOPE} ]; then
-    RESPONSESTR="${RESPONSESTR},"
+    RESPONSESTR="${RESPONSESTR};"
   fi
   COUNT=$(( COUNT + 1))
 done
-echo "RANK ${TOPE} COVID19${RESPONSESTR}. Las ${TOPE} ciudades tienen el $((${TOTALREPORTADOS}*100/${TOTAL}))% de pacientes en CO."
+echo "RANK ${TOPE} COVID19${RESPONSESTR}. Las ${TOPE} ciudades reportan el $((${TOTALREPORTADOS}*100/${TOTAL}))% del total de pacientes en CO."
